@@ -1,0 +1,37 @@
+{% extends "auth_base.html" %}
+{% import 'bootstrap_wtf.html' as wtf %}
+
+{% block content %}
+<h1>  Register </h1>
+
+<form id="registerForm" action="{{url_for('auth.register_student')}}" method="POST">
+    {{form.hidden_tag()}}
+    {{wtf.form_field(form.username)}}
+    {{wtf.form_field(form.firstname)}}
+    {{wtf.form_field(form.lastname)}}
+
+    {{wtf.form_field(form.number)}}
+    {{wtf.form_field(form.major)}}
+    {{wtf.form_field(form.id)}}
+    {{wtf.form_field(form.gpa)}}
+    {{wtf.form_field(form.graduation)}}
+    {{wtf.form_field(form.password)}}
+    {{wtf.form_field(form.password2)}}
+    <!--NEW LINE FOR COURSES THEY'VE SA BEFORE-->
+    {{wtf.form_field(form.courses_saed)}}
+    {{wtf.form_field(form.past_enrollments)}}
+    <!--need courses taken too, not just courses as sa-->
+
+
+
+    <button type="button" id="submitButton" class="btn btn-pink">Register</button>
+</form>
+
+<script>
+    // JavaScript to handle form submission
+    document.getElementById("submitButton").addEventListener("click", function() {
+        document.getElementById("registerForm").submit();
+    });
+</script>
+
+{% endblock %}

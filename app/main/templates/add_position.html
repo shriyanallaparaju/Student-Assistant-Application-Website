@@ -1,0 +1,12 @@
+{% extends "base_instructor.html" %}
+{% import 'bootstrap_wtf.html' as wtf %}
+
+{% block content %}
+
+    <h1>Create SA Position</h1>
+
+    <form method="POST" action="{{ url_for('main.add_position') }}">
+        {{ wtf.quick_form(sa_position_form) }}
+    </form>
+  
+{% endblock %}

@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        {% if title %}
+        <title>{{ title }} - SA </title>
+        {% else %}
+        <title>Student Assistant App!</title>
+        {% endif %}
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+        {{ moment.include_moment() }}
+    </head>
+    <body class="d-flex">
+
+        <nav id="sideNavbar" class="d-flex flex-column">
+            <div class="text-white text-center mt-3">
+                <strong>
+                    User: {{ current_user.firstname if current_user.is_authenticated }} {{ current_user.lastname if current_user.is_authenticated }}
+                </strong>
+            </div>
+
+            <a class="navbar-brand text-white text-center mt-3" href="{{ url_for('main.index_student') }}">Home</a>
+
+            <ul class="navbar-nav flex-grow-1 d-flex flex-column align-items-center mt-3">
+                <li class="nav-item border border-light w-75 text-center">
+                    <a class="nav-link text-white" href="{{ url_for('main.sa_applyto_list') }}">My Apps</a>
+                </li>
+            </ul>
+
+            {% if current_user.is_authenticated %}
+            <div class="mt-auto mb-3 w-100 text-center">
+                <a class="btn btn-light w-75 d-flex align-items-center justify-content-center mx-auto logout-button" href="{{ url_for('auth.logout') }}">
+                    <span class="logout-text">Logout</span>
+                    <span class="logout-icon d-none d-sm-inline">
+                        <i class="bi bi-box-arrow-right"></i>
+                    </span>
+                </a>
+            </div>
+            {% endif %}
+
+            <button id="toggleButton" class="btn btn-light">
+                &lt;
+            </button>
+        </nav>
+
+        <div id="mainContent" class="container-fluid">
+            <div class="container mt-3">
+                {% with messages = get_flashed_messages() %}
+                {% if messages %}
+                    {% for message in messages %}
+                    <div class="alert alert-info" role="alert">{{ message }}</div>
+                    {% endfor %}
+                {% endif %}
+                {% endwith %}
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+
+        <script
+            src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+            crossorigin="anonymous">
+        </script>
+        <script>
+            const sideNavbar = document.getElementById('sideNavbar');
+            const mainContent = document.getElementById('mainContent');
+            const toggleButton = document.getElementById('toggleButton');
+
+            toggleButton.addEventListener('click', () => {
+                sideNavbar.classList.toggle('collapsed');
+                mainContent.classList.toggle('expanded');
+                toggleButton.innerHTML = sideNavbar.classList.contains('collapsed') ? '&gt;' : '&lt;';
+            });
+        </script>
+    </body>
+</html>

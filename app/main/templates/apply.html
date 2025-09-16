@@ -1,0 +1,27 @@
+{% extends "base_student.html" %}
+{% import 'bootstrap_wtf.html' as wtf %}
+
+{% block content %}
+<div>
+    <h2> Apply for {{ position.course_section.the_course }} - Section {{ position.course_section.section_num }}</h2>
+    <form method="POST" action="{{ url_for('main.apply_to_sa_position', position_id=position.id) }}">
+        {{ form.hidden_tag() }}
+        <div>
+            {{ form.grade_earned.label }}
+            {{ form.grade_earned(class="form-control") }}
+        </div>
+        <div>
+            {{ form.term_taken.label }}
+            {{ form.term_taken(class="form-control") }}
+        </div>
+        <div>
+            {{ form.term_applied.label }}
+            {{ form.term_applied(class="form-control") }}
+        </div>
+        <br>
+        <div>
+            {{ form.submit(class="btn btn-pink")}}
+        </div>
+    </form>
+</div>
+{% endblock %}

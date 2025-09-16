@@ -1,0 +1,35 @@
+{% extends "base_student.html" %}
+{% import 'bootstrap_wtf.html' as wtf %}
+
+{% block content %}
+
+    <h1>My Applications</h1>
+    <div class="postlist mt-4">
+        {% if applications %}
+            {% for application in applications %}
+                <div class="post-box mb-4 p-3 border rounded light-pink-bg mx-auto">
+                    <h5>{{ application.app_course_section.the_course.name }} | Section {{ application.app_course_section.section_num }} | {{ application.app_course_section.term }}</h5>
+                    <p><strong>Qualifications:</strong> {{ application.app_position.qualifications }}</p>
+                    <p><strong>Minimum GPA:</strong> {{ application.app_position.min_gpa }}</p>
+                    <p><strong>Minimum Grade:</strong> {{ application.app_position.min_grade }}</p>
+                    <p><strong>Positions Available:</strong> {{ application.app_position.num_sa_required }}</p>
+                    <p><strong>Status:</strong> {{ application.status.name }}</p>
+                    
+                    <!-- Withdraw Button -->
+                    {% if application.status.name == "Pending" %}
+                        <form action="{{ url_for('main.withdraw_application', application_id=application.id) }}" form method="POST">
+                            {{ form.hidden_tag() }}
+                            <button type="submit" class="btn btn-danger mt-3">Withdraw</button>
+                        </form>
+                    {% endif %}
+
+                    </div>  
+
+            {% endfor %}
+        {% else %}
+            <p>You have not applied to any positions.</p>
+        {% endif %}
+    </div> 
+
+  
+{% endblock %}

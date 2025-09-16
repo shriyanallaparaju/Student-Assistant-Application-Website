@@ -1,0 +1,32 @@
+{% extends "base_instructor.html" %}
+{% import 'bootstrap_wtf.html' as wtf %}
+
+{% block content %}
+
+    <h1>Create Section!</h1>
+
+            <form method="POST" action="{{ url_for('main.create_course')}}">
+                {{ form.hidden_tag() }}
+                <div>
+                    <label for="course"> Select Course </label>
+                    {{ form.the_course(class="form-control")}}
+                </div>
+                <div>
+                    <label for="section_num"> Section Number </label>
+                    {{ form.section_num(class="form-control")}}
+                </div>
+                <div>
+                    <label for="course"> Term </label>
+                    {{ form.term(class="form-control")}}
+                </div>
+
+                <br>
+                <div>
+                    {{ form.submit(class="btn btn-pink")}}
+                </div>
+            </form>
+
+
+  
+  
+{% endblock %}

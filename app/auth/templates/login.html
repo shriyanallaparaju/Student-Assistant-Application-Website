@@ -1,0 +1,42 @@
+{% extends "auth_base.html" %}
+{% import 'bootstrap_wtf.html' as wtf %}
+
+{% block content %}
+<div class="container-fluid vh-100 d-flex p-0">
+    <!-- Sign In Section -->
+    <div class="col-6 bg-white d-flex flex-column align-items-center justify-content-center">
+        <h1>Sign In</h1>
+        <form action="{{ url_for('auth.login') }}" method="POST" class="w-75">
+            {{ form.hidden_tag() }}
+            <div class="mb-3">
+                {{ wtf.form_field(form.username) }}
+            </div>
+            <div class="mb-3">
+                {{ wtf.form_field(form.password) }}
+            </div>
+            <div class="d-flex align-items-center mb-4">
+                <div>
+                    {{ wtf.form_field(form.remember_me) }}
+                    <label for="remember_me" class="form-check-label"></label>
+                </div>
+            </div>
+            <button type="submit" class="btn btn-pink btn-lg w-100">Sign In</button>
+        </form>
+        {% if sso_url %}
+            <hr>
+            <p>Sign in with WPI SSO:</p>
+            <a href="{{ sso_url }}" class="btn btn-pink btn-lg w-75">Sign In with SSO</a>
+        {% endif %}
+
+    </div>
+
+    <!-- Sign Up Section -->
+    <div class="col-6 bg-pink text-white d-flex flex-column align-items-center justify-content-center">
+        <h1 class="mb-4">Welcome!</h1>
+        <p>Don't Have an Account?</p>
+        <a href="{{ url_for('auth.register_student') }}" class="btn btn-white btn-lg w-75 mb-3">Student Sign Up</a>
+        <a href="{{ url_for('auth.register_professor') }}" class="btn btn-white btn-lg w-75">Instructor Sign Up</a>
+    </div>
+</div>
+{% endblock %}
+

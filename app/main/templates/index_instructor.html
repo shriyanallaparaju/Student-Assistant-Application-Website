@@ -1,0 +1,28 @@
+{% extends "base_instructor.html" %}
+{% import 'bootstrap_wtf.html' as wtf %}
+
+{% block content %}
+
+    <h1>Student Assistant App!</h1>
+        <div class="postlist mt-4">
+            {% if posts %}
+                {% for post in posts %}
+                    <div class="post-box mb-4 p-3 border rounded light-pink-bg mx-auto">
+                        <h5>{{ post.course_section.the_course }} | {{ post.course_section.term }}</h5>
+                        <h5>Course Section: {{ post.course_section.section_num}}</h5>
+                        <p><strong>Qualifications:</strong> {{ post.qualifications }}</p>
+                        <p><strong>Minimum GPA:</strong> {{ post.min_gpa }}</p>
+                        <p><strong>Minimum Grade:</strong> {{ post.min_grade }}</p>
+                        <p><strong>Positions Available:</strong> {{ post.num_sa_required }}</p>
+                        <br>
+                        <div>Posted at: {{ moment(post.timestamp).format('LLL') }}</div>
+                        <br>
+                        <a href="{{ url_for('main.view_applied', position_id=post.id) }}" class="btn btn-white" style="display: inline-block;">View Applicants</a>
+                    </div>  
+                {% endfor %}
+            {% else %}
+                <p>No available positions at the moment.</p>
+            {% endif %}
+        </div>
+  
+{% endblock %}
